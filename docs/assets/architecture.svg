@@ -1,13 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="780" viewBox="0 0 1400 780">
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="1400" viewBox="0 0 860 1400">
   <defs>
     <style>
       .bg { fill: #f6f3ed; }
-      .panel { fill: #fffdf8; stroke: #25313b; stroke-width: 2; rx: 20; ry: 20; }
-      .title { font: 700 38px Georgia, serif; fill: #182028; }
-      .subtitle { font: 600 19px Georgia, serif; fill: #344250; }
+      .panel { fill: #fffdf8; stroke: #25313b; stroke-width: 2; rx: 22; ry: 22; }
+      .title { font: 700 34px Georgia, serif; fill: #182028; }
+      .subtitle { font: 600 18px Georgia, serif; fill: #344250; }
       .step-title { font: 700 22px 'Segoe UI', Arial, sans-serif; fill: #182028; }
       .step-body { font: 16px 'Segoe UI', Arial, sans-serif; fill: #42515d; }
-      .summary-title { font: 700 24px 'Segoe UI', Arial, sans-serif; fill: #182028; }
+      .summary-title { font: 700 23px 'Segoe UI', Arial, sans-serif; fill: #182028; }
       .summary-body { font: 16px 'Segoe UI', Arial, sans-serif; fill: #42515d; }
       .arrow { stroke: #6f7f8c; stroke-width: 4; fill: none; marker-end: url(#arrowhead); }
       .a1 { fill: #d9e8f4; }
@@ -18,88 +18,84 @@
       .summary { fill: #fffaf0; }
     </style>
     <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto">
-      <polygon points="0 0, 10 3.5, 0 7" fill="#6f7f8c"/>
+      <polygon points="0 0, 10 3.5, 0 7" fill="#6f7f8c" />
     </marker>
   </defs>
 
-  <rect class="bg" x="0" y="0" width="1400" height="780" />
+  <rect class="bg" x="0" y="0" width="860" height="1400" />
 
-  <text class="title" x="70" y="72">Local Vol Project Architecture</text>
-  <text class="subtitle" x="70" y="108">Daily listed SPY option snapshots to arbitrage-free surfaces, Dupire local vol, numerical pricing, and hedging diagnostics.</text>
+  <text class="title" x="60" y="70">Local Vol Project Architecture</text>
+  <text class="subtitle" x="60" y="104">From daily SPY option snapshots to arbitrage-free surfaces, Dupire local vol, pricing, and hedging.</text>
 
-  <g transform="translate(70,170)">
-    <rect class="panel a1" x="0" y="0" width="240" height="170" />
-    <text class="step-title" x="24" y="40">1. Daily Data</text>
-    <text class="step-body" x="24" y="76">
-      <tspan x="24" dy="0">Theta snapshot at 15:45 ET</tspan>
-      <tspan x="24" dy="26">raw archive and panel append</tspan>
-      <tspan x="24" dy="26">dated listed contracts</tspan>
+  <g transform="translate(90,150)">
+    <rect class="panel a1" x="0" y="0" width="680" height="140" />
+    <text class="step-title" x="28" y="42">1. Daily Data</text>
+    <text class="step-body" x="28" y="78">
+      <tspan x="28" dy="0">Theta snapshot at 15:45 ET</tspan>
+      <tspan x="28" dy="26">raw archive and dated panel append</tspan>
+      <tspan x="28" dy="26">listed contracts tracked through time</tspan>
     </text>
   </g>
 
-  <g transform="translate(400,170)">
-    <rect class="panel a2" x="0" y="0" width="240" height="170" />
-    <text class="step-title" x="24" y="40">2. Quote Conditioning</text>
-    <text class="step-body" x="24" y="76">
-      <tspan x="24" dy="0">schema normalization</tspan>
-      <tspan x="24" dy="26">validation and carry inputs</tspan>
-      <tspan x="24" dy="26">liquidity and spread filters</tspan>
+  <path class="arrow" d="M430 290 V340" />
+
+  <g transform="translate(90,340)">
+    <rect class="panel a2" x="0" y="0" width="680" height="140" />
+    <text class="step-title" x="28" y="42">2. Quote Conditioning</text>
+    <text class="step-body" x="28" y="78">
+      <tspan x="28" dy="0">schema normalization and validation</tspan>
+      <tspan x="28" dy="26">spot and carry inputs</tspan>
+      <tspan x="28" dy="26">liquidity and spread filters</tspan>
     </text>
   </g>
 
-  <g transform="translate(730,170)">
-    <rect class="panel a3" x="0" y="0" width="270" height="170" />
-    <text class="step-title" x="24" y="40">3. Surface Construction</text>
-    <text class="step-body" x="24" y="76">
-      <tspan x="24" dy="0">OTM puts plus OTM calls</tspan>
-      <tspan x="24" dy="26">total-variance interpolation</tspan>
-      <tspan x="24" dy="26">call-grid arbitrage projection</tspan>
+  <path class="arrow" d="M430 480 V530" />
+
+  <g transform="translate(90,530)">
+    <rect class="panel a3" x="0" y="0" width="680" height="170" />
+    <text class="step-title" x="28" y="42">3. Surface Construction</text>
+    <text class="step-body" x="28" y="78">
+      <tspan x="28" dy="0">merge OTM puts and OTM calls into synthetic calls</tspan>
+      <tspan x="28" dy="26">interpolate total variance across strike and maturity</tspan>
+      <tspan x="28" dy="26">project the call grid onto the static no-arbitrage set</tspan>
+      <tspan x="28" dy="26">export an arbitrage-free implied-volatility surface</tspan>
     </text>
   </g>
 
-  <g transform="translate(1090,170)">
-    <rect class="panel a4" x="0" y="0" width="240" height="170" />
-    <text class="step-title" x="24" y="40">4. Local Vol</text>
-    <text class="step-body" x="24" y="76">
-      <tspan x="24" dy="0">Dupire extraction</tspan>
-      <tspan x="24" dy="26">regularization</tspan>
-      <tspan x="24" dy="26">trusted-domain diagnostics</tspan>
+  <path class="arrow" d="M430 700 V750" />
+
+  <g transform="translate(90,750)">
+    <rect class="panel a4" x="0" y="0" width="680" height="150" />
+    <text class="step-title" x="28" y="42">4. Local Volatility</text>
+    <text class="step-body" x="28" y="78">
+      <tspan x="28" dy="0">derive Dupire local volatility from the repaired surface</tspan>
+      <tspan x="28" dy="26">regularize noisy regions</tspan>
+      <tspan x="28" dy="26">track trusted and weak domains explicitly</tspan>
     </text>
   </g>
 
-  <g transform="translate(400,420)">
-    <rect class="panel a5" x="0" y="0" width="270" height="170" />
-    <text class="step-title" x="24" y="40">5. Pricing</text>
-    <text class="step-body" x="24" y="76">
-      <tspan x="24" dy="0">Crank-Nicolson PDE</tspan>
-      <tspan x="24" dy="26">Monte Carlo validation</tspan>
-      <tspan x="24" dy="26">Greeks and repricing checks</tspan>
+  <path class="arrow" d="M430 900 V950" />
+
+  <g transform="translate(90,950)">
+    <rect class="panel a5" x="0" y="0" width="680" height="170" />
+    <text class="step-title" x="28" y="42">5. Pricing and Evaluation</text>
+    <text class="step-body" x="28" y="78">
+      <tspan x="28" dy="0">price with Crank-Nicolson PDE and Monte Carlo</tspan>
+      <tspan x="28" dy="26">reprice listed vanillas and inspect diagnostics</tspan>
+      <tspan x="28" dy="26">compare Black-Scholes and Local Vol hedging</tspan>
+      <tspan x="28" dy="26">include common entry premiums and transaction costs</tspan>
     </text>
   </g>
 
-  <g transform="translate(730,420)">
-    <rect class="panel a5" x="0" y="0" width="270" height="170" />
-    <text class="step-title" x="24" y="40">6. Hedge Study</text>
-    <text class="step-body" x="24" y="76">
-      <tspan x="24" dy="0">fixed near-ATM listed contracts</tspan>
-      <tspan x="24" dy="26">daily recalibration</tspan>
-      <tspan x="24" dy="26">BS versus Local Vol with costs</tspan>
-    </text>
-  </g>
+  <path class="arrow" d="M430 1120 V1170" />
 
-  <path class="arrow" d="M310 255 H400" />
-  <path class="arrow" d="M640 255 H730" />
-  <path class="arrow" d="M1000 255 H1090" />
-  <path class="arrow" d="M1210 340 V390 H535 V420" />
-  <path class="arrow" d="M1210 340 V390 H865 V420" />
-  <path class="arrow" d="M670 505 H730" />
-
-  <g transform="translate(70,640)">
-    <rect class="panel summary" x="0" y="0" width="1260" height="96" />
-    <text class="summary-title" x="28" y="38">Canonical workflow</text>
-    <text class="summary-body" x="28" y="68">
-      <tspan x="28" dy="0">Collect a dated SPY option panel, calibrate an arbitrage-free surface on each trade date, derive daily local volatility,</tspan>
-      <tspan x="28" dy="24">and compare Black-Scholes and Local Vol on the same listed contracts with common market entry premiums and explicit transaction costs.</tspan>
+  <g transform="translate(90,1170)">
+    <rect class="panel summary" x="0" y="0" width="680" height="150" />
+    <text class="summary-title" x="28" y="42">Canonical workflow</text>
+    <text class="summary-body" x="28" y="78">
+      <tspan x="28" dy="0">Collect a dated SPY option panel, recalibrate the surface each day,</tspan>
+      <tspan x="28" dy="26">derive local volatility from the repaired call grid, and compare</tspan>
+      <tspan x="28" dy="26">Black-Scholes and Local Vol on the same fixed listed contracts.</tspan>
     </text>
   </g>
 </svg>
