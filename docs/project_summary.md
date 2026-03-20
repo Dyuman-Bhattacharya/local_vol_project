@@ -2,7 +2,7 @@
 
 This repository builds a daily options-modeling workflow around listed SPY option chains. It collects one full option snapshot per trading day, constructs an arbitrage-free surface, derives Dupire local volatility, prices with PDE and Monte Carlo, and evaluates Black-Scholes versus Local Vol hedging with transaction costs on fixed listed contracts.
 
-The canonical workflow is intentionally centered on the liquid short-dated SPY core. Option-chain data comes from Theta, while a small Yahoo fallback is retained for SPY spot and carry inputs.
+The canonical workflow is centered on the liquid short-dated SPY core. Option-chain data comes from Theta, while a small Yahoo fallback is retained for SPY spot and carry inputs.
 
 ## Pipeline Snapshot
 
@@ -40,12 +40,12 @@ The table below contrasts the static single-snapshot reference artifact set with
 | Metric | Reference snapshot workflow | Canonical daily workflow |
 | --- | ---: | ---: |
 | Static-arbitrage failures after projection | `0` | `0` |
-| Weighted fit inside bid/ask | `n/a` | `10.08%` |
-| Mean absolute repricing error | `0.9569` | `2.9125` |
-| Raw static-arbitrage failures before projection | `25` | `140` |
-| Projection RMSE adjustment | `0.0173` | `0.1338` |
-| Density-mass minimum | `0.4026` | `0.3045` |
-| Trusted local-vol domain fraction | `n/a` | `12.56%` |
+| Weighted fit inside bid/ask | `n/a` | `9.78%` |
+| Mean absolute repricing error | `0.9569` | `2.2638` |
+| Raw static-arbitrage failures before projection | `25` | `116` |
+| Projection RMSE adjustment | `0.0173` | `0.1551` |
+| Density-mass minimum | `0.4026` | `0.3231` |
+| Trusted local-vol domain fraction | `n/a` | `9.95%` |
 | BS pricing RMSE | `n/a` | `0.1888` |
 | Local Vol pricing RMSE | `n/a` | `1.4566` |
 | BS net market-PnL RMSE | `n/a` | `2.1460` |
@@ -58,6 +58,8 @@ The table below contrasts the static single-snapshot reference artifact set with
 Verification:
 
 - full suite status: `81 passed`
+- panel snapshots: `22`
+- panel date range: `2026-02-18` to `2026-03-19`
 
 ## Reading Path
 

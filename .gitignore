@@ -41,6 +41,7 @@ temp_*/
 *.out
 *.toc
 *.pdf
+docs/theory_and_repo_walkthrough.tex
 
 # Local vendor credentials
 config/theta_creds.txt

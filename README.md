@@ -2,71 +2,55 @@
 
 [![Python 3.13](https://img.shields.io/badge/Python-3.13-3776AB.svg)](pyproject.toml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-2ea44f.svg)](LICENSE)
-[![CI Ready](https://img.shields.io/badge/CI-GitHub_Actions-2088FF.svg)](.github/workflows/ci.yml)
+[![Tests](https://img.shields.io/badge/Tests-81%20passed-2088FF.svg)](.github/workflows/ci.yml)
 
-This repository builds an end-to-end options modeling pipeline for listed SPY options. It collects daily option-chain snapshots, constructs an arbitrage-free implied-volatility surface, derives Dupire local volatility, prices with Crank-Nicolson PDE and Monte Carlo, and evaluates Black-Scholes versus Local Vol hedging with transaction costs on fixed listed contracts.
+This repository builds an end-to-end options modeling workflow for listed SPY options. It collects daily option-chain snapshots, constructs an arbitrage-free implied-volatility surface, derives Dupire local volatility, prices with Crank-Nicolson PDE and Monte Carlo, and evaluates Black-Scholes versus Local Vol hedging with transaction costs on fixed listed contracts.
 
 ![Architecture](docs/assets/architecture.svg)
 
-## Documentation Map
+## Overview
 
-- [Project Summary](docs/project_summary.md)
-- [System Architecture](docs/system_architecture.md)
-- [Data Workflow](docs/data_workflow.md)
-- [Findings](docs/findings.md)
-- [Reference Outputs](docs/reference_outputs/README.md)
-- [Canonical Daily Config](config/daily_collection.yaml)
+- Daily SPY option-chain collection at `15:45` America/New_York
+- Synthetic call surface built from OTM puts and OTM calls
+- Static-arbitrage repair in call-price space
+- Dupire local-vol extraction with explicit trusted-domain handling
+- Numerical pricing with PDE and Monte Carlo
+- Dated-panel hedge study with explicit transaction costs
 
-## What The Project Does
+## Current Status
 
-The pipeline starts from messy listed option quotes and turns them into objects that can be used for pricing and hedging:
+The canonical workflow uses Theta option-chain data. A small Yahoo fallback remains only for SPY spot and carry inputs because the selected Theta plan does not include the stock-side historical quote bundle.
 
-1. collect one full SPY option snapshot per trading day at `15:45` America/New_York,
-2. standardize and validate the option chain,
+| Item | Value |
+| --- | ---: |
+| Panel snapshots | `22` |
+| Panel date range | `2026-02-18` to `2026-03-19` |
+| Hedge-study contracts | `10` |
+| Final arbitrage failures after projection | `0` |
+| Weighted fit inside bid/ask | `9.78%` |
+| Trusted-domain repricing MAE | `2.2638` |
+| BS pricing RMSE | `0.1888` |
+| Local Vol pricing RMSE | `1.4566` |
+| BS replication net RMSE | `2.2176` |
+| Local Vol replication net RMSE | `2.6675` |
+| BS net market-PnL RMSE | `2.1460` |
+| Local Vol net market-PnL RMSE | `1.7217` |
+| Test suite | `81 passed` |
+
+## Pipeline
+
+The project starts from listed quotes and turns them into pricing and hedging objects:
+
+1. collect one full SPY option snapshot per trading day,
+2. standardize and validate the chain,
 3. merge OTM puts and OTM calls into a synthetic call dataset,
 4. fit a direct total-variance surface in strike and maturity,
 5. project the call-price grid onto the static no-arbitrage set,
 6. derive an arbitrage-free IV surface and a Dupire local-vol surface,
 7. price options numerically with PDE and Monte Carlo,
-8. evaluate BS and Local Vol on a growing historical panel of listed contracts.
+8. evaluate Black-Scholes and Local Vol on a dated historical panel of listed contracts.
 
-The canonical workflow is intentionally narrow. It focuses on the liquid short-dated SPY core rather than trying to fit the entire listed chain equally hard.
-
-## Why The Design Looks This Way
-
-The most important design decision in the repo is that the canonical object of record is the repaired call-price grid, not the raw fitted surface. The interpolated total-variance surface is only an intermediate construction. The exported grid is the object that must satisfy calendar monotonicity and butterfly convexity before anything downstream is trusted.
-
-That repaired grid is then used to:
-
-- compute arbitrage-free implied volatilities,
-- inspect the risk-neutral density,
-- extract Dupire local volatility,
-- reprice listed vanillas,
-- and power the daily hedge study.
-
-## Current Data Setup
-
-The option-chain side of the daily workflow now uses Theta. The underlying spot and carry inputs still use a small Yahoo fallback because the selected Theta plan does not include the stock-side historical quote bundle. Raw snapshots are archived under `data/archive`, appended into `data/processed/spy_options_panel.parquet`, and summarized in `data/processed/spy_options_panel_manifest.json`.
-
-## Current Status
-
-As of the latest local run, the canonical Theta-backed panel contains `21` dated SPY snapshots from `2026-02-18` through `2026-03-18`. The current daily hedge study is active on `10` fixed near-ATM listed contracts.
-
-Current headline metrics from the canonical daily workflow:
-
-- final static-arbitrage failures after projection: `0`
-- weighted fit inside bid/ask: `10.08%`
-- trusted-domain repricing MAE: `2.9125`
-- BS pricing RMSE: `0.1888`
-- Local Vol pricing RMSE: `1.4566`
-- BS replication net RMSE: `2.2176`
-- Local Vol replication net RMSE: `2.6675`
-- BS net market-PnL RMSE: `2.1460`
-- Local Vol net market-PnL RMSE: `1.7217`
-
-Current verification status:
-
-- full test suite: `81 passed`
+The canonical workflow focuses on the liquid short-dated SPY core rather than trying to force an equally strong fit across the entire listed chain.
 
 ## Quickstart
 
@@ -102,9 +86,16 @@ poetry run python scripts\run_canonical_daily_update.py
 - [generate_report.py](scripts/generate_report.py)  
   Generates the markdown report and figures from the latest artifacts.
 
-## Notebook Reading Order
+## Documentation
 
-Read the notebooks in this order:
+- [Project Summary](docs/project_summary.md)
+- [System Architecture](docs/system_architecture.md)
+- [Data Workflow](docs/data_workflow.md)
+- [Findings](docs/findings.md)
+- [Reference Outputs](docs/reference_outputs/README.md)
+- [Canonical Daily Config](config/daily_collection.yaml)
+
+## Notebook Reading Order
 
 1. [01_data_exploration.ipynb](notebooks/01_data_exploration.ipynb)
 2. [02_iv_surface_fitting.ipynb](notebooks/02_iv_surface_fitting.ipynb)
@@ -112,13 +103,7 @@ Read the notebooks in this order:
 4. [04_pricing_validation.ipynb](notebooks/04_pricing_validation.ipynb)
 5. [05_hedging_backtest.ipynb](notebooks/05_hedging_backtest.ipynb)
 
-Together they tell the same story as the code:
-
-- what the raw option data looks like,
-- how the surface is cleaned and repaired,
-- why Dupire local volatility needs regularization,
-- how pricing quality is checked,
-- and how the daily hedge study is structured.
+Together they walk through raw option data quality, surface fitting and arbitrage repair, Dupire local volatility, pricing validation, and the dated hedge-study design.
 
 ## Representative Figures
 
@@ -161,8 +146,6 @@ Canonical daily settings live in:
 
 ## Canonical Daily Workflow
 
-The canonical real-data path is a dated panel workflow:
-
 1. collect one full SPY snapshot at `15:45`,
 2. archive it,
 3. append it into the panel,
@@ -180,18 +163,12 @@ That task runs `scripts/run_canonical_daily_update.py` each trading day at `15:4
 
 ## Current Limitations
 
-This is a serious research repo, but not a production trading system.
-
-The main limitations are:
-
 - the stock-side inputs still rely on a small Yahoo fallback,
 - local volatility remains a deterministic volatility model,
 - density mass is measured on a finite strike grid,
-- and any self-built daily panel becomes more informative as more dates accumulate.
+- and the daily panel becomes more informative as more dates accumulate.
 
 ## Tests
-
-Run:
 
 ```powershell
 poetry run pytest -q
