@@ -25,7 +25,10 @@
   <rect class="bg" x="0" y="0" width="860" height="1400" />
 
   <text class="title" x="60" y="70">Local Vol Project Architecture</text>
-  <text class="subtitle" x="60" y="104">From daily SPY option snapshots to arbitrage-free surfaces, Dupire local vol, pricing, and hedging.</text>
+  <text class="subtitle" x="60" y="104">
+    <tspan x="60" dy="0">Daily SPY option snapshots to arbitrage-free surfaces,</tspan>
+    <tspan x="60" dy="24">Dupire local volatility, pricing, and hedging diagnostics.</tspan>
+  </text>
 
   <g transform="translate(90,150)">
     <rect class="panel a1" x="0" y="0" width="680" height="140" />
