@@ -1,0 +1,49 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# OS / editors
+.DS_Store
+Thumbs.db
+
+# Local generated outputs
+output/
+output_nosmooth_test/
+docs/reference_outputs/generated/
+
+# Daily collection artifacts
+data/archive/
+data/archive_theta_test*/
+data/cache/
+data/processed/spy_options_panel.parquet
+data/processed/spy_options_panel.csv
+data/processed/spy_options_panel_manifest.json
+data/processed/*_test*.parquet
+data/processed/*_test*_manifest.json
+output/canonical_daily/daily_task.log
+
+# Logs
+*.log
+temp_*/
+
+# LaTeX build artifacts
+*.aux
+*.out
+*.toc
+*.pdf
+
+# Local vendor credentials
+config/theta_creds.txt
+
+# Notebook checkpoints
+.ipynb_checkpoints/

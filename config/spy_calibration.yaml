@@ -1,0 +1,41 @@
+data:
+  source: "data/raw/spy_options_snapshot.parquet"
+  underlying: "SPY"
+  filter:
+    min_volume: 10
+    min_open_interest: 50
+    moneyness_range: [0.82, 1.18]
+    maturity_range_days: [7, 730]
+    max_relative_spread: 0.05
+    iv_range: [0.05, 1.0]
+    min_points_per_slice: 8
+
+iv_solver:
+  method: "hybrid"
+  max_iterations: 100
+  tolerance: 1e-10
+
+surface_fitting:
+  method: "interpolated_total_variance"
+  interpolation: "pchip"
+  enforce_static_arbitrage_on_output_grid: true
+
+local_vol:
+  grid:
+    n_strikes: 80
+  regularization:
+    repair_short_end: true
+    smooth: true
+    gaussian_sigma_T: 0.4
+    gaussian_sigma_K: 0.6
+    bounds:
+      min_vol: 0.05
+      max_vol: 2.0
+
+pricing:
+  method: "pde"
+
+output:
+  figures_dir: "output/figures"
+  results_dir: "output"
+  log_level: "INFO"

@@ -1,0 +1,43 @@
+collection:
+  ticker: "SPY"
+  provider: "theta"
+  timezone: "America/New_York"
+  snapshot_time: "15:45"
+  archive_root: "data/archive"
+  panel_out: "data/processed/spy_options_panel.parquet"
+  panel_manifest: "data/processed/spy_options_panel_manifest.json"
+  min_days: 1
+  max_days: 365
+  max_expiries: null
+  risk_free_rate: null
+  dividend_yield: null
+
+backtest:
+  enabled: true
+  output_dir: "output/canonical_daily"
+  option_type: "call"
+  strike_mode: "atm"
+  T_years: 0.021917808219178082
+  entry_step_days: 1
+  max_contracts: 10
+  min_panel_dates: 6
+  contract_moneyness_band: 0.02
+  contract_max_relative_spread: 0.05
+  contract_min_volume: 25
+  contract_min_open_interest: 200
+  tx_bps: 10.0
+  pde_space: 120
+  pde_time: 100
+  min_volume: 25
+  min_open_interest: 200
+  moneyness_min: 0.90
+  moneyness_max: 1.10
+  max_relative_spread: 0.05
+  iv_min: 0.03
+  iv_max: 1.50
+  min_points_per_slice: 10
+  n_strikes: 45
+  save_daily_calibrations: false
+
+report:
+  generate: true

@@ -1,0 +1,39 @@
+panel:
+  path: "data/processed/spy_options_panel.parquet"
+  manifest: "data/processed/spy_options_panel_manifest.json"
+  collection_time_local: "15:45"
+  timezone: "America/New_York"
+
+study:
+  ticker: "SPY"
+  option_type: "call"
+  strike_mode: "atm"
+  target_T_years: 0.021917808219178082
+  entry_step_days: 1
+  min_panel_dates: 6
+  max_contracts: 10
+  contract_moneyness_band: 0.02
+  contract_max_relative_spread: 0.05
+  contract_min_volume: 25
+  contract_min_open_interest: 200
+
+market:
+  tx_bps: 10.0
+
+calibration_filters:
+  min_volume: 25
+  min_open_interest: 200
+  moneyness_range: [0.90, 1.10]
+  max_relative_spread: 0.05
+  iv_range: [0.03, 1.50]
+  min_points_per_slice: 10
+  n_strikes: 45
+
+numerics:
+  pde_space: 120
+  pde_time: 100
+
+output:
+  results_dir: "output/canonical_daily"
+  figures_dir: "output/canonical_daily/figures"
+  log_level: "INFO"
