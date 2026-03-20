@@ -4,7 +4,7 @@
       .bg { fill: #f6f3ed; }
       .panel { fill: #fffdf8; stroke: #25313b; stroke-width: 2; rx: 22; ry: 22; }
       .title { font: 700 34px Georgia, serif; fill: #182028; }
-      .subtitle { font: 600 18px Georgia, serif; fill: #344250; }
+      .subtitle { font: 600 17px Georgia, serif; fill: #344250; }
       .step-title { font: 700 22px 'Segoe UI', Arial, sans-serif; fill: #182028; }
       .step-body { font: 16px 'Segoe UI', Arial, sans-serif; fill: #42515d; }
       .summary-title { font: 700 23px 'Segoe UI', Arial, sans-serif; fill: #182028; }
@@ -24,10 +24,10 @@
 
   <rect class="bg" x="0" y="0" width="860" height="1400" />
 
-  <text class="title" x="60" y="70">Local Vol Project Architecture</text>
-  <text class="subtitle" x="60" y="104">
-    <tspan x="60" dy="0">Daily SPY option snapshots to arbitrage-free surfaces,</tspan>
-    <tspan x="60" dy="24">Dupire local volatility, pricing, and hedging diagnostics.</tspan>
+  <text class="title" x="430" y="70" text-anchor="middle">Local Vol Project Architecture</text>
+  <text class="subtitle" x="430" y="104" text-anchor="middle">
+    <tspan x="430" dy="0">Daily SPY options to arbitrage-free surfaces</tspan>
+    <tspan x="430" dy="22">and local-vol pricing diagnostics</tspan>
   </text>
 
   <g transform="translate(90,150)">
