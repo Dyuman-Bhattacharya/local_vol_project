@@ -6,7 +6,7 @@
 
 This repository builds an end-to-end options modeling workflow for listed SPY options. It collects daily option-chain snapshots, constructs an arbitrage-free implied-volatility surface, derives Dupire local volatility, prices with Crank-Nicolson PDE and Monte Carlo, and evaluates Black-Scholes versus Local Vol hedging with transaction costs on fixed listed contracts.
 
-![Architecture](docs/assets/architecture.png)
+![Architecture](docs/assets/architecture_readme.png)
 
 ## Overview
 

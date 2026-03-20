@@ -17,7 +17,7 @@ The canonical workflow is centered on the liquid short-dated SPY core. Option-ch
 
 ## Architecture
 
-![Architecture](assets/architecture.png)
+![Architecture](assets/architecture_readme.png)
 
 ## Representative Figures
 
